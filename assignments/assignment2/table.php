@@ -1,57 +1,64 @@
 <?php
-// Numbers
-$evenNumbers = "";
+// Array for numbers 1 to 50
+$numbers = [];
 for ($i = 1; $i <= 50; $i++) {
-    if ($i % 2 == 0) {
-        if ($evenNumbers !== "") {
-            $evenNumbers .= " - ";
-        }
-        $evenNumbers .= $i;
+    $numbers[] = $i;
+}
+
+$evenArray = [];
+
+// foreach loop for even numbers
+foreach ($numbers as $num) {
+    if ($num % 2 === 0) {
+        $evenArray[] = $num;
     }
 }
 
-// Label
-$evenNumbers = "Even Numbers: " . $evenNumbers;
 
-// heredoc
+// Strings with implode
+$evenNumbers = "Even Numbers: " . implode(" - ", $evenArray);
+
+// Form with heredoc syntax
 $form = <<<EOD
-<form>
+<form method="post" action="#">
   <div class="mb-3">
     <label for="emailInput" class="form-label">Email address</label>
-    <input type="email" class="form-control" id="emailInput" placeholder="name@example.com">
+    <input type="email" class="form-control" id="emailInput" name="email" placeholder="name@example.com">
   </div>
   <div class="mb-3">
-    <label for="exampleTextarea" class="form-label">Example text area</label>
-    <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+    <label for="exampleTextarea" class="form-label">Example textarea</label>
+    <textarea class="form-control" id="exampleTextarea" name="message" rows="3"></textarea>
   </div>
 </form>
 EOD;
 
-// Table
+// Table generation function
 function createTable($rows, $cols) {
-    $table = "<table class='table table-bordered'>"; // Styling
+    $table = "<table class='table table-bordered'>";
     for ($i = 1; $i <= $rows; $i++) {
-        $table .= "<tr>"; 
+        $table .= "<tr>";
         for ($j = 1; $j <= $cols; $j++) {
-            $table .= "<td>Row $i, Col $j</td>"; 
+            $table .= "<td>Row $i, Col $j</td>";
         }
-        $table .= "</tr>"; 
+        $table .= "</tr>";
     }
-    $table .= "</table>"; 
+    $table .= "</table>";
     return $table;
 }
 ?>
+
+<!-- HTML with Bootstrap -->
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Table PHP</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+    <title>PHP Table Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   </head>
   <body class="container">
     <?php
-        echo $evenNumbers;
+        echo "<p>$evenNumbers</p>";
         echo $form;
         echo createTable(8, 6);
     ?>
