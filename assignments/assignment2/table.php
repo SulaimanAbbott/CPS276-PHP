@@ -1,4 +1,9 @@
 <?php
+
+/* Placing all PHP above the DOCTYPE allows the server
+ to execute logic first and prepare variables before any HTML is sent -- no overlap, separates logic from presentation
+*/
+
 // Array for numbers 1 to 50
 $numbers = [];
 for ($i = 1; $i <= 50; $i++) {
@@ -7,9 +12,13 @@ for ($i = 1; $i <= 50; $i++) {
 
 $evenArray = [];
 
+// Collect even numbers using a foreach loop
+// foreach loops through $numbers and the if condition filters even numbers
+// This pattern can be reused to filter other stuff
+
 // foreach loop for even numbers
 foreach ($numbers as $num) {
-    if ($num % 2 === 0) {
+    if ($num % 2 === 0) { // example of other reason for filtering: if ($product['price'] > 50)
         $evenArray[] = $num;
     }
 }
@@ -17,6 +26,10 @@ foreach ($numbers as $num) {
 
 // Strings with implode
 $evenNumbers = "Even Numbers: " . implode(" - ", $evenArray);
+
+// makes it easy to embed large blocks of HTML or text without escaping quotes or breaking lines 
+// into multiple strings. it makes the code more readable because it looks more like regular HTML, 
+// avoids messy concatenation, and clearly separates presentation from PHP logic.
 
 // Form with heredoc syntax
 $form = <<<EOD
@@ -31,6 +44,18 @@ $form = <<<EOD
   </div>
 </form>
 EOD;
+
+/* Example Form
+        $form = "<form>" .
+          "<label for=\"email\">Email:</label>" .
+          "<input type=\"email\" id=\"email\">" .
+        "</form>"; 
+*/
+
+// The outer for loop controls how many tr are created.
+// For each row, the inner for loop runs and creates the correct number of columns (<td>).
+// Inside the inner loop, .= concatenates each new cell onto the existing $table string.
+// table is built piece by piece, with every row and column added in order.
 
 // Table generation function
 function createTable($rows, $cols) {
