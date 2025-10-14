@@ -9,8 +9,8 @@ if (isset($_POST['submit'])) {
     $fileContent = trim($_POST['filecontent']);
 
     // Validate directory name (AI Prompt: Give me a command I can use instead of an if statement that only allows alphabetic characters)
-    if (!ctype_alpha($dirName)) {
-        $message = 'Folder name must contain alphabetic characters only (A–Z, a–z).';
+    if (!ctype_alnum($dirName)) {
+        $message = 'Folder name must contain alphanumeric characters only (A–Z, a–z, 1-10).';
     } else {
         $directories = new Directories();
         $result = $directories->createDirectoryAndFile($dirName, $fileContent);
@@ -42,7 +42,7 @@ $output = $fileLink ?: $message;
   <body>
     <div class="container mt-4">
       <h1>File and Directory Assignment</h1>
-      <p>Enter a folder name and the contents of a file. Folder names should contain alphabetic characters only.</p>
+      <p>Enter a folder name and the contents of a file. Folder names should contain alphanumeric characters only.</p>
 
       <p><?php echo $output; ?></p>
 
