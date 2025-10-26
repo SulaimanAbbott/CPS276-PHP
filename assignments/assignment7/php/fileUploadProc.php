@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['fileUpload'])) {
         return;
     }
 
-    // Move file to 'files' directory
+    // Move file to files directory
     $targetDir = 'files/';
     $targetPath = $targetDir . basename($file['name']);
 
