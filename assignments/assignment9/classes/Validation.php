@@ -9,13 +9,20 @@ class Validation {
             'address' => '/^[a-zA-Z0-9\s,.\'-]{1,100}$/',
             'zip'     => '/^\d{5}(-\d{4})?$/',
             'email'   => '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
+            'password'=> '/^(?=.*[A-Z])(?=.*\W)(?=.*\d).{8,}$/',
             'none'    => '/.*/'
         ];
 
         $pattern = $patterns[$type] ?? '/.*/';
 
         if (!preg_match($pattern, $value)) {
-            $errorMessage = $customErrorMsg ?? "Invalid $type format.";
+            $defaultMsg = match($type) {
+                'name' => 'Invalid name format.',
+                'email' => 'You must enter a valid email address.',
+                'password' => 'Invalid password format.',
+                default => "Invalid $type format."
+            };
+            $errorMessage = $customErrorMsg ?? $defaultMsg;
             $this->errors[$type] = $errorMessage;
             return false;
         }
